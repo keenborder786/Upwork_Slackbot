@@ -1,11 +1,6 @@
 import upwork
 from pprint import pprint
 from upwork.routers import auth
-from config import (
-    CONSUMER_KEY,
-    CONSUMER_SECRET
-
-)
 
 class Client:
     
@@ -36,6 +31,3 @@ class Client:
             ) ## TODO: Get Auth Code Directly from https://www.upwork.com/ab/account-security/oauth2/authorize?response_type=token&client_id=CLIENT-ID-HERE&redirect_uri=https://a.callback.url
             client.get_access_token(authz_code)
         return client
-
-    def get_job_posting(self,query):
-        pass

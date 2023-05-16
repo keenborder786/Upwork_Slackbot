@@ -1,1 +1,1 @@
-# Upwork_Slackbot
+# Upwork SlackBot
