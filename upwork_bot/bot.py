@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 
 
-class Bot:
+class UpworkBot:
     def __init__(self,query):
         self.query = query
     def get_data(self):
@@ -28,3 +28,14 @@ class Bot:
         for job in job_list:
             jobs_data[job.find('a')['href']] = job.text
         return jobs_data
+
+    def format_data(self,jobs_data):
+        """
+        
+        
+        
+        
+        """
+        job_formatted_list = f"*Following are the new {self.query} jobs that have been posted* \n"
+        for job_link,job_text in jobs_data.items(): job_formatted_list += f" - https://www.upwork.com{job_link} \n"
+        return job_formatted_list
