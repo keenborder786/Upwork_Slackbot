@@ -23,7 +23,8 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/so
 
 # Install Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt-get install ./google-chrome-stable_current_amd64.deb
+RUN apt-get update
+RUN apt-get -y install ./google-chrome-stable_current_amd64.deb
 
 # Copy all the relevant Files
 COPY slack_bot/ /opt/upwork_slackbot/slack_bot/
@@ -31,5 +32,5 @@ COPY upwork_bot/ /opt/upwork_slackbot/upwork_bot/
 COPY config.py /opt/upwork_slackbot/config.py
 COPY main.py /opt/upwork_slackbot/main.py
 
-ENTRYPOINT ["/opt/conda/envs/upwork_scrapper/bin/python","-u", "/opt/upwork_scrapper/main.py"]
+ENTRYPOINT ["/opt/conda/envs/upwork_scrapper/bin/python","-u", "/opt/upwork_slackbot/main.py"]
 

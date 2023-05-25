@@ -1,0 +1,14 @@
+version: '3'
+services:
+  upwork_slackbot:
+    image: upwork_slackbot:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CONSUMER_KEY=""
+      - CONSUMER_SECRET=""
+      - QUERY=Python
+      - SLACK_BOT_TOKEN=""
+      - SLACK_APP_TOKEN=""
+      - CHANNEL_ID=C05856EUC8L
