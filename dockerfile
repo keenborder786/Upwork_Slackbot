@@ -29,6 +29,7 @@ RUN apt-get -y install ./google-chrome-stable_current_amd64.deb
 # Copy all the relevant Files
 COPY slack_bot/ /opt/upwork_slackbot/slack_bot/
 COPY upwork_bot/ /opt/upwork_slackbot/upwork_bot/
+COPY caching/ /opt/upwork_slackbot/caching/
 COPY config.py /opt/upwork_slackbot/config.py
 COPY main.py /opt/upwork_slackbot/main.py
 

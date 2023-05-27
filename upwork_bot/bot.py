@@ -3,15 +3,22 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from webdriver_manager.chrome import ChromeDriverManager
 from fake_headers import Headers
-
+import json
 class UpworkBot:
-    def __init__(self,query):
-        self.query = query
-    def get_data(self):
+    def __init__(self,query, cache_db):
         """
+        
+        
+        """
+        self.query = query
+        self.cache_db = cache_db
+        self.driver = self._intialize_driver()
+    def _intialize_driver(self):
+
+        """
+        
         
         
         """
@@ -26,12 +33,19 @@ class UpworkBot:
         options.add_argument('--disable-dev-shm-usage')
         customUserAgent = header.generate()['User-Agent']
         options.add_argument(f"user-agent={customUserAgent}") # head a fake-header to work in headless mode.
-        
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(f"https://www.upwork.com/nx/jobs/search/?q={self.query.replace(' ','%20')}&sort=recency")
-        jobs_layout = driver.find_element(By.CSS_SELECTOR,"div.up-card-section > div:nth-child(1) > div:nth-child(2)")
+        return driver
+
+    def get_data(self):
+
+        """
+        
+        
+        """
+        
+        jobs_layout = self.driver.find_element(By.CSS_SELECTOR,"div.up-card-section > div:nth-child(1) > div:nth-child(2)")
         html_data = jobs_layout.get_attribute('outerHTML')
-        driver.quit()
         return html_data
     def parse_data(self, html_data):
         """
@@ -43,10 +57,12 @@ class UpworkBot:
         jobs_data = {}
         for job in job_list:
             job_link = job.find('a')
-            job_features = job.find('div' , attrs={'data-test': 'JobTileFeatures','class':'row'})
-            jobs_data.update({job_link['href']:
-                                {'Features' : job_features.text , 'Title' : job_link.text}}
-                            )
+            if not self.cache_db.cache_client.exists(job_link['href']): ## Caching the Jobs so we don't repeat the same job in message payload
+                job_features = job.find('div' , attrs={'data-test': 'JobTileFeatures','class':'row'})
+                jobs_data.update({job_link['href']:
+                                    {'Features' : job_features.text , 'Title' : job_link.text}}
+                                )
+                self.cache_db.cache_client.set(job_link['href'],json.dumps({'Features' : job_features.text , 'Title' : job_link.text}) , ex = self.cache_db.ttl)
         return jobs_data
 
     def format_data(self,jobs_data):
