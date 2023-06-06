@@ -20,6 +20,6 @@ docker-compose up
 
 - `/generate`: Generate the jobs for the given query. Will ask for the time interval
 
-![https://github.com/keenborder786/Upwork_Slackbot/blob/feat_interactivity/assets/GetCommand.png]
+![Generate-Image](https://github.com/keenborder786/Upwork_Slackbot/blob/feat_interactivity/assets/GetCommand.png)
 
 
