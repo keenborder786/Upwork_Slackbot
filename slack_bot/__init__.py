@@ -1,1 +1,1 @@
-from slack_bot.bot import Slackbot
+from slack_bot.bot import start_app
