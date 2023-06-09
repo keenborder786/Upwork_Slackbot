@@ -18,8 +18,14 @@ docker-compose up
 ## Bot commands:
 
 
-- `/generate`: Generate the jobs for the given query. Will ask for the time interval
+- `/generate`: Gives users recent job posting for the title given.
 
-![Generate-Image](https://github.com/keenborder786/Upwork_Slackbot/blob/feat_interactivity/assets/GetCommand.png)
+![Generate-Image](https://github.com/keenborder786/Upwork_Slackbot/blob/17b51b95571f296ba2ad778f9c586d6ea759aa73/assets/GetCommand.png)
+
+- `/Generate-Events`: Gives user an input prompt which allows them to write the job title and frequency at what they would like to get notify about the job while starting the continuous notifier
+
+![Generate-Events-Image](https://github.com/keenborder786/Upwork_Slackbot/blob/17b51b95571f296ba2ad778f9c586d6ea759aa73/assets/Modal_Image.png)
+
+- `/stop`: Stop the the continuous notifier by `/Generate-Events`
 
 
